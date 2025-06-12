@@ -21,8 +21,6 @@ function App() {
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState<"success" | "neutral" | "error">("neutral");
 
-  
-
   async function refresh() {
     setRefreshing(true);
     const data = await api.getEntries();
@@ -122,7 +120,7 @@ function App() {
                   }
                   
                   {entries.map((entry, index) => (
-                    <button className={"btn btn-info w-full " + (selectedEntry === entry ? "btn-disabled" : "")} onClick={() => fetchEntry(entry)}>
+                    <button key={index} className={"btn btn-info w-full " + (selectedEntry === entry ? "btn-disabled" : "")} onClick={() => fetchEntry(entry)}>
                         {entry}
                     </button>
                   ))}
@@ -133,18 +131,18 @@ function App() {
                 (<table className="table w-full h-fit">
                   {entryContent.map((row, index) => (
                     index === 0 ?
-                      (<thead>
+                      (<thead key={index}>
                         <tr>
-                            {row.map((header, index) => (
-                                <th className="p-2 text-left">{header}</th>
+                            {row.map((header, index2) => (
+                                <th key={index2} className="p-2 text-left">{header}</th>
                             ))}
                         </tr>
                       </thead>) 
                         : 
-                      (<tbody>
+                      (<tbody key={index}>
                         <tr>
-                          {row.map((cell) => (
-                              <td className="p-2">
+                          {row.map((cell, index2) => (
+                              <td key={index2} className="p-2">
                                   {cell}
                               </td>
                           ))}
